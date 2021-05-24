@@ -2,7 +2,7 @@ extends NetworkedController
 # Take cares to control the player and propagate the motion on the other peers
 
 
-const MAX_PLAYER_DISTANCE: float = 5.0
+const MAX_PLAYER_DISTANCE: float = 20.0
 
 var _position_id := -1
 var _rotation_id := -1
