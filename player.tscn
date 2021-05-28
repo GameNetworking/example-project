@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://networked_controller.gd" type="Script" id=2]
@@ -19,24 +19,6 @@ bottom_radius = 0.15
 height = 0.2
 radial_segments = 18
 rings = 1
-
-[sub_resource type="StandardMaterial3D" id=4]
-no_depth_test = true
-shading_mode = 0
-albedo_color = Color( 1, 0, 0, 1 )
-
-[sub_resource type="StandardMaterial3D" id=5]
-no_depth_test = true
-shading_mode = 0
-albedo_color = Color( 0.0784314, 1, 0, 1 )
-
-[sub_resource type="StandardMaterial3D" id=6]
-no_depth_test = true
-shading_mode = 0
-albedo_color = Color( 0.980392, 0.00392157, 0.988235, 1 )
-
-[sub_resource type="StandardMaterial3D" id=7]
-shading_mode = 0
 
 [node name="Player" type="KinematicBody3D" groups=[
 "characters",
@@ -76,23 +58,4 @@ light_energy = 14.23
 spot_attenuation = 1.56917
 spot_angle = 73.2909
 spot_angle_attenuation = 19.0273
-script = null
-
-[node name="debug" type="Node" parent="."]
-script = null
-
-[node name="IG" type="ImmediateGeometry3D" parent="debug"]
-material_override = SubResource( 4 )
-script = null
-
-[node name="IG_floor" type="ImmediateGeometry3D" parent="debug"]
-material_override = SubResource( 5 )
-script = null
-
-[node name="IG_dir" type="ImmediateGeometry3D" parent="debug"]
-material_override = SubResource( 6 )
-script = null
-
-[node name="IG_path" type="ImmediateGeometry3D" parent="debug"]
-material_override = SubResource( 7 )
 script = null
