@@ -14,7 +14,7 @@ func _ready():
 	NetworkSync.register_variable(get_parent(), "translation")
 	NetworkSync.register_variable(get_parent(), "velocity")
 	NetworkSync.register_variable(get_parent(), "on_floor")
-	if not get_tree().is_network_server():
+	if not get_tree().multiplayer.is_network_server():
 		set_physics_process(false)
 
 
@@ -27,7 +27,7 @@ func _physics_process(_delta):
 			set_doll_peer_active(character.get_network_master(), !is_far_away);
 
 
-func collect_inputs(delta: float, db: DataBuffer):
+func _collect_inputs(_delta: float, db: DataBuffer):
 	# Collects the player inputs.
 
 	var input_direction := Vector3()
@@ -54,7 +54,7 @@ func collect_inputs(delta: float, db: DataBuffer):
 		db.add_normalized_vector2(Vector2(input_direction.x, input_direction.z), DataBuffer.COMPRESSION_LEVEL_3)
 
 
-func controller_process(delta: float, db: DataBuffer):
+func _controller_process(delta: float, db: DataBuffer):
 	# Process the controller.
 
 	# Take the inputs
@@ -69,7 +69,7 @@ func controller_process(delta: float, db: DataBuffer):
 	get_parent().step_body(delta, Vector3(input_direction.x, 0.0, input_direction.y), is_jumping)
 
 
-func count_input_size(inputs: DataBuffer) -> int:
+func _count_input_size(inputs: DataBuffer) -> int:
 	# Count the input buffer size.
 	var size: int = 0
 	size += inputs.get_bool_size()
@@ -81,7 +81,7 @@ func count_input_size(inputs: DataBuffer) -> int:
 	return size
 
 
-func are_inputs_different(inputs_A: DataBuffer, inputs_B: DataBuffer) -> bool:
+func _are_inputs_different(inputs_A: DataBuffer, inputs_B: DataBuffer) -> bool:
 	# Compare two inputs, returns true when those are different or false when are close enough.
 	if inputs_A.read_bool() != inputs_B.read_bool():
 		return true
@@ -100,7 +100,7 @@ func are_inputs_different(inputs_A: DataBuffer, inputs_B: DataBuffer) -> bool:
 	return false
 
 
-func collect_epoch_data(buffer: DataBuffer):
+func _collect_epoch_data(buffer: DataBuffer):
 	# Called on server when the collect state is triggered.
 	# The collected `DataBuffer` is sent to the client that parse it using the
 	# function `parse_epoch_data` and puts the data into the interpolator.
@@ -110,13 +110,13 @@ func collect_epoch_data(buffer: DataBuffer):
 	buffer.add_vector3(get_parent().mesh_container.rotation, DataBuffer.COMPRESSION_LEVEL_2)
 
 
-func setup_interpolator(interpolator: Interpolator):
+func _setup_interpolator(interpolator: Interpolator):
 	# Called only on client doll to initialize the `Intepolator`.
 	_position_id = interpolator.register_variable(Vector3(), Interpolator.FALLBACK_NEW_OR_NEAREST)
 	_rotation_id = interpolator.register_variable(Vector3(), Interpolator.FALLBACK_NEW_OR_NEAREST)
 
 
-func parse_epoch_data(interpolator: Interpolator, buffer: DataBuffer):
+func _parse_epoch_data(interpolator: Interpolator, buffer: DataBuffer):
 	# Called locally to parse the `DataBuffer` and store the data into the `Interpolator`.
 	var position := buffer.read_vector3(DataBuffer.COMPRESSION_LEVEL_2)
 	var rotation := buffer.read_vector3(DataBuffer.COMPRESSION_LEVEL_2)
@@ -124,7 +124,7 @@ func parse_epoch_data(interpolator: Interpolator, buffer: DataBuffer):
 	interpolator.epoch_insert(_rotation_id, rotation)
 
 
-func apply_epoch(_delta: float, interpolated_data: Array):
+func _apply_epoch(_delta: float, interpolated_data: Array):
 	# Happens only on doll client each frame. Here is necessary to apply the _already interpolated_ values.
 	get_parent().global_transform.origin = interpolated_data[_position_id]
 	get_parent().mesh_container.rotation = interpolated_data[_rotation_id]
