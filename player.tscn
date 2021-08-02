@@ -20,12 +20,9 @@ height = 0.2
 radial_segments = 18
 rings = 1
 
-[node name="Player" type="KinematicBody3D" groups=[
+[node name="Player" type="CharacterBody3D" groups=[
 "characters",
 ]]
-collision_layer = 2
-collision_mask = 3
-collision/safe_margin = 0.04
 script = ExtResource( 1 )
 
 [node name="NetworkedController" type="NetworkedController" parent="."]
@@ -46,14 +43,14 @@ surface_material_override/0 = null
 script = null
 
 [node name="MeshInstance" type="MeshInstance3D" parent="MeshContainer/Mesh"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.658166, -0.147896 )
+transform = Transform3D(1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.658166, -0.147896)
 mesh = SubResource( 3 )
 surface_material_override/0 = null
 script = null
 
 [node name="SpotLight" type="SpotLight3D" parent="MeshContainer/Mesh/MeshInstance"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, -0.192691, 5.96046e-08 )
-light_color = Color( 0.988235, 0.972549, 0.00784314, 1 )
+transform = Transform3D(1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, -0.192691, 5.96046e-08)
+light_color = Color(0.988235, 0.972549, 0.00784314, 1)
 light_energy = 14.23
 spot_attenuation = 1.56917
 spot_angle = 73.2909

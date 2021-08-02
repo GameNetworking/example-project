@@ -8,18 +8,18 @@
 [sub_resource type="BoxMesh" id=2]
 
 [sub_resource type="ConcavePolygonShape3D" id=3]
-data = PackedVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+data = PackedVector3Array(-1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1)
 
 [sub_resource type="Environment" id=4]
 background_mode = 1
-background_color = Color( 0.0705882, 0.827451, 1, 1 )
+background_color = Color(0.0705882, 0.827451, 1, 1)
 sdfgi_use_occlusion = true
 sdfgi_bounce_feedback = 0.3
 sdfgi_cascades = 2
 sdfgi_max_distance = 3276.8
 sdfgi_energy = 7.429
 glow_blend_mode = 0
-fog_light_color = Color( 0.701961, 0.2, 0.333333, 1 )
+fog_light_color = Color(0.701961, 0.2, 0.333333, 1)
 volumetric_fog_density = 0.1293
 
 [sub_resource type="BoxMesh" id=5]
@@ -30,17 +30,17 @@ volumetric_fog_density = 0.1293
 script = ExtResource( 2 )
 
 [node name="DirectionalLight" type="DirectionalLight3D" parent="."]
-transform = Transform( -0.0134716, -0.995255, 0.0963678, -0.13779, 0.0973049, 0.98567, -0.99037, 3.38571e-08, -0.138447, 0, -5.26483, 0 )
+transform = Transform3D(-0.0134716, -0.995255, 0.0963678, -0.13779, 0.0973049, 0.98567, -0.99037, 3.38571e-08, -0.138447, 0, -5.26483, 0)
 shadow_enabled = true
 script = null
 
 [node name="StaticBody" type="StaticBody3D" parent="."]
-transform = Transform( 50, 0, 0, 0, 0.999999, 0, 0, 0, 50, 0, -1, 0 )
+transform = Transform3D(50, 0, 0, 0, 0.999999, 0, 0, 0, 50, 0, -1, 0)
 collision_mask = 3
 script = null
 
 [node name="CollisionShape" type="CollisionShape3D" parent="StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 shape = SubResource( 1 )
 disabled = true
 script = null
@@ -58,7 +58,7 @@ shape = SubResource( 3 )
 script = null
 
 [node name="ServerCamera" type="Camera3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 10.6518, 37.3083 )
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 10.6518, 37.3083)
 current = true
 script = null
 
@@ -75,30 +75,30 @@ anchor_right = 0.5
 script = null
 
 [node name="ServerButton" type="Button" parent="Menu/VBoxContainer"]
-offset_right = 93.0
-offset_bottom = 20.0
+offset_right = 109.0
+offset_bottom = 29.0
 text = "Start Server"
 script = null
 
 [node name="ClientButton" type="Button" parent="Menu/VBoxContainer"]
-offset_top = 24.0
-offset_right = 93.0
-offset_bottom = 44.0
+offset_top = 33.0
+offset_right = 109.0
+offset_bottom = 62.0
 text = "Client Server"
 script = null
 
 [node name="SyncMesh" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.12977, 0.11825, 0.354554 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.12977, 0.11825, 0.354554)
 
 [node name="SyncMesh2" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.21811, 0.11825, 0.46023 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.21811, 0.11825, 0.46023)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 4 )
 script = null
 
 [node name="StaticBody2" type="StaticBody3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 script = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody2"]
@@ -111,7 +111,7 @@ shape = SubResource( 6 )
 script = null
 
 [node name="StaticBody3" type="StaticBody3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11)
 script = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3"]
@@ -124,7 +124,7 @@ shape = SubResource( 6 )
 script = null
 
 [node name="StaticBody4" type="StaticBody3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 11 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 11)
 script = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody4"]
@@ -137,7 +137,7 @@ shape = SubResource( 6 )
 script = null
 
 [node name="StaticBody6" type="StaticBody3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.57699 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.57699)
 script = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody6"]
@@ -150,7 +150,7 @@ shape = SubResource( 6 )
 script = null
 
 [node name="StaticBody5" type="StaticBody3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 11 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 11)
 script = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody5"]
