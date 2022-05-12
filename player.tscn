@@ -1,52 +1,43 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=7 format=3 uid="uid://bani3d0rw7ru5"]
 
-[ext_resource path="res://player.gd" type="Script" id=1]
-[ext_resource path="res://networked_controller.gd" type="Script" id=2]
-[ext_resource path="res://player_camera.tscn" type="PackedScene" id=3]
+[ext_resource type="Script" path="res://player.gd" id="1"]
+[ext_resource type="Script" path="res://networked_controller.gd" id="2"]
+[ext_resource type="PackedScene" path="res://player_camera.tscn" id="3"]
 
-[sub_resource type="CapsuleShape3D" id=1]
+[sub_resource type="CapsuleShape3D" id="1"]
 radius = 0.2
 height = 1.6
 
-[sub_resource type="CapsuleMesh" id=2]
+[sub_resource type="CapsuleMesh" id="2"]
 radius = 0.2
-mid_height = 1.6
 radial_segments = 7
 
-[sub_resource type="CylinderMesh" id=3]
+[sub_resource type="CylinderMesh" id="3"]
 top_radius = 0.15
 bottom_radius = 0.15
 height = 0.2
 radial_segments = 18
 rings = 1
 
-[node name="Player" type="CharacterBody3D" groups=[
-"characters",
-]]
-script = ExtResource( 1 )
+[node name="Player" type="CharacterBody3D" groups=["characters"]]
+script = ExtResource( "1" )
 
 [node name="NetworkedController" type="NetworkedController" parent="."]
-script = ExtResource( 2 )
+script = ExtResource( "2" )
 
 [node name="Shape" type="CollisionShape3D" parent="."]
-shape = SubResource( 1 )
-script = null
+shape = SubResource( "1" )
 
-[node name="Camera" parent="." instance=ExtResource( 3 )]
+[node name="Camera" parent="." instance=ExtResource( "3" )]
 
 [node name="MeshContainer" type="Node3D" parent="."]
-script = null
 
 [node name="Mesh" type="MeshInstance3D" parent="MeshContainer"]
-mesh = SubResource( 2 )
-surface_material_override/0 = null
-script = null
+mesh = SubResource( "2" )
 
 [node name="MeshInstance" type="MeshInstance3D" parent="MeshContainer/Mesh"]
 transform = Transform3D(1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.658166, -0.147896)
-mesh = SubResource( 3 )
-surface_material_override/0 = null
-script = null
+mesh = SubResource( "3" )
 
 [node name="SpotLight" type="SpotLight3D" parent="MeshContainer/Mesh/MeshInstance"]
 transform = Transform3D(1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, -0.192691, 5.96046e-08)
@@ -55,4 +46,3 @@ light_energy = 14.23
 spot_attenuation = 1.56917
 spot_angle = 73.2909
 spot_angle_attenuation = 19.0273
-script = null

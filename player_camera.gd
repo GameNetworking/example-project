@@ -11,7 +11,7 @@ var _captured: bool
 
 
 func _ready() -> void:
-	if is_network_master():
+	if is_multiplayer_authority():
 		_camera.current = true
 	else:
 		set_process_input(false)

@@ -22,9 +22,9 @@ func _start_server():
 
 	var net := ENetMultiplayerPeer.new()
 	net.create_server(SERVER_PORT, MAX_PLAYERS)
-	get_tree().multiplayer.connect("network_peer_connected", Callable(self, "_on_client_connected"))
-	get_tree().multiplayer.connect("network_peer_disconnected", Callable(self, "_on_client_disconnected"))
-	get_tree().multiplayer.set_network_peer(net)
+	get_tree().get_multiplayer().connect("peer_connected", Callable(self, "_on_client_connected"))
+	get_tree().get_multiplayer().connect("peer_disconnected", Callable(self, "_on_client_disconnected"))
+	get_tree().get_multiplayer().set_multiplayer_peer(net)
 	print("Server IP: ", IP.get_local_addresses())
 
 
@@ -33,7 +33,7 @@ func _start_client():
 
 	var net := ENetMultiplayerPeer.new()
 	net.create_client(SERVER_IP, SERVER_PORT)
-	get_tree().multiplayer.set_network_peer(net)
+	get_tree().get_multiplayer().set_multiplayer_peer(net)
 
 
 func _on_client_connected(peer_id):
@@ -80,19 +80,19 @@ func _on_client_disconnected(peer_id):
 		rpc_id(_players[player_id][&"peer_id"], &"_remove_player", disconnected_player_id)
 
 
-@rpc(puppet, nosync, reliable)
+@rpc(call_remote, any_peer, reliable)
 func _spawn_new_player(player_id, peer_id):
 	print("Spawn player id: ", player_id, ", Peer_id: ", peer_id)
-	print("While my peer id is: ", get_tree().multiplayer.network_peer.get_unique_id())
+	print("While my peer id is: ", get_tree().get_multiplayer().multiplayer_peer.get_unique_id())
 
 	var player = load("res://player.tscn").instantiate()
-	player.set_network_master(peer_id)
+	player.set_multiplayer_authority(peer_id)
 	player.set_name("player_" + str(player_id))
 	get_tree().get_current_scene().add_child(player)
 	player.set_color(COLORS_LIST[player_id])
 
 
-@rpc(puppet, nosync, reliable)
+@rpc(call_remote, any_peer, reliable)
 func _remove_player(player_id):
 	var player_node = get_tree().get_current_scene().get_node("player_" + str(player_id))
 	if player_node != null:

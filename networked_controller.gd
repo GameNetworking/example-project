@@ -14,17 +14,20 @@ func _ready():
 	NetworkSync.register_variable(get_parent(), "translation")
 	NetworkSync.register_variable(get_parent(), "velocity")
 	NetworkSync.register_variable(get_parent(), "on_floor")
-	if not get_tree().multiplayer.is_network_server():
+	if not get_tree().get_multiplayer().is_server():
 		set_physics_process(false)
 
 
 func _physics_process(_delta):
+	"""
 	for character in get_tree().get_nodes_in_group("characters"):
 		if character != get_parent():
 			var delta_distance = character.get_global_transform().origin - get_parent().get_global_transform().origin
 
 			var is_far_away = delta_distance.length_squared() > (MAX_PLAYER_DISTANCE * MAX_PLAYER_DISTANCE)
 			set_doll_peer_active(character.get_network_master(), !is_far_away);
+	"""
+	pass
 
 
 func _collect_inputs(_delta: float, db: DataBuffer):
@@ -106,7 +109,12 @@ func _collect_epoch_data(buffer: DataBuffer):
 	# function `parse_epoch_data` and puts the data into the interpolator.
 	# Later the function `apply_epoch` is called to apply the epoch
 	# (already interpolated) data.
-	buffer.add_vector3(get_parent().global_transform.origin, DataBuffer.COMPRESSION_LEVEL_2)
+	
+	# TODO The compression level for the character position should be scaled depending on how close
+	# the character is to the local character: It should be 0 when the characters are near each other,
+	# to avoid that a collision cause de-sync due to the sliglty different position introduced by the
+	# high compression level.
+	buffer.add_vector3(get_parent().global_transform.origin, DataBuffer.COMPRESSION_LEVEL_0)
 	buffer.add_vector3(get_parent().mesh_container.rotation, DataBuffer.COMPRESSION_LEVEL_2)
 
 
@@ -118,7 +126,7 @@ func _setup_interpolator(interpolator: Interpolator):
 
 func _parse_epoch_data(interpolator: Interpolator, buffer: DataBuffer):
 	# Called locally to parse the `DataBuffer` and store the data into the `Interpolator`.
-	var position := buffer.read_vector3(DataBuffer.COMPRESSION_LEVEL_2)
+	var position := buffer.read_vector3(DataBuffer.COMPRESSION_LEVEL_0)
 	var rotation := buffer.read_vector3(DataBuffer.COMPRESSION_LEVEL_2)
 	interpolator.epoch_insert(_position_id, position)
 	interpolator.epoch_insert(_rotation_id, rotation)

@@ -6,7 +6,7 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
+config_version=5
 
 _global_script_classes=[{
 "base": "SpringArm3D",
@@ -23,10 +23,15 @@ _global_script_class_icons={
 config/name="Net"
 run/main_scene="res://world.tscn"
 config/icon="res://icon.png"
+config/features=PackedStringArray("4.0")
 
 [autoload]
 
 NetworkSync="*res://network_sync.gd"
+
+[display]
+
+window/vsync/vsync_mode=0
 
 [editor]
 

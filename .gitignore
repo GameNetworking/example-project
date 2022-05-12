@@ -1,2 +1,4 @@
 # Editor cache
 .godot
+.import
+/logs/*

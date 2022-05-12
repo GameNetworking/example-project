@@ -9,14 +9,14 @@ const JUMP_IMPULSE: float = 4.0
 
 @onready var camera: PlayerCamera = $Camera
 
-var on_floor: bool
+var on_floor: bool = false
 
 @onready var mesh_container: Node3D = $MeshContainer
 @onready var _mesh: MeshInstance3D = $MeshContainer/Mesh
 
 
 func _init():
-	stop_on_slope = true
+	floor_stop_on_slope = true
 
 
 func set_color(color):
@@ -35,15 +35,15 @@ func step_body(delta: float, input_direction: Vector3, is_jumping: bool):
 
 	var motion: Vector3 = input_direction * MOVE_SPEED
 	var new_velocity: Vector3
-	if on_floor and linear_velocity.length() < MOVE_SPEED:
-		new_velocity = linear_velocity.lerp(motion, MOTION_INTERPOLATE_SPEED * delta)
+	if on_floor and velocity.length() < MOVE_SPEED:
+		new_velocity = velocity.lerp(motion, MOTION_INTERPOLATE_SPEED * delta)
 		if is_jumping:
 			new_velocity.y = new_velocity.y + JUMP_IMPULSE
 	else:
-		new_velocity = linear_velocity.lerp(motion, VELOCITY_INTERPOLATE_SPEED * delta)
+		new_velocity = velocity.lerp(motion, VELOCITY_INTERPOLATE_SPEED * delta)
 		new_velocity.y = new_velocity.y - GRAVITY * delta
 
-	linear_velocity = new_velocity
+	velocity = new_velocity
 	move_and_slide()
 	on_floor = is_on_floor() # Store in a variable to sync over network
 
