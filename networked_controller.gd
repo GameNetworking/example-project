@@ -11,7 +11,7 @@ var _rotation_id := -1
 func _ready():
 	# Notify the NetworkSync who is controlling parent nodes.
 	NetworkSync.set_node_as_controlled_by(get_parent(), self)
-	NetworkSync.register_variable(get_parent(), "translation")
+	NetworkSync.register_variable(get_parent(), "position")
 	NetworkSync.register_variable(get_parent(), "velocity")
 	NetworkSync.register_variable(get_parent(), "on_floor")
 	if not get_tree().get_multiplayer().is_server():
@@ -118,21 +118,22 @@ func _collect_epoch_data(buffer: DataBuffer):
 	buffer.add_vector3(get_parent().mesh_container.rotation, DataBuffer.COMPRESSION_LEVEL_2)
 
 
-func _setup_interpolator(interpolator: Interpolator):
-	# Called only on client doll to initialize the `Intepolator`.
-	_position_id = interpolator.register_variable(Vector3(), Interpolator.FALLBACK_NEW_OR_NEAREST)
-	_rotation_id = interpolator.register_variable(Vector3(), Interpolator.FALLBACK_NEW_OR_NEAREST)
+#func _setup_interpolator(interpolator: Interpolator):
+#	# Called only on client doll to initialize the `Intepolator`.
+#	_position_id = interpolator.register_variable(Vector3(), Interpolator.FALLBACK_NEW_OR_NEAREST)
+#	_rotation_id = interpolator.register_variable(Vector3(), Interpolator.FALLBACK_NEW_OR_NEAREST)
 
 
-func _parse_epoch_data(interpolator: Interpolator, buffer: DataBuffer):
-	# Called locally to parse the `DataBuffer` and store the data into the `Interpolator`.
-	var position := buffer.read_vector3(DataBuffer.COMPRESSION_LEVEL_0)
-	var rotation := buffer.read_vector3(DataBuffer.COMPRESSION_LEVEL_2)
-	interpolator.epoch_insert(_position_id, position)
-	interpolator.epoch_insert(_rotation_id, rotation)
+#func _parse_epoch_data(interpolator: Interpolator, buffer: DataBuffer):
+#	# Called locally to parse the `DataBuffer` and store the data into the `Interpolator`.
+#	var position := buffer.read_vector3(DataBuffer.COMPRESSION_LEVEL_0)
+#	var rotation := buffer.read_vector3(DataBuffer.COMPRESSION_LEVEL_2)
+#	interpolator.epoch_insert(_position_id, position)
+#	interpolator.epoch_insert(_rotation_id, rotation)
 
 
-func _apply_epoch(_delta: float, interpolated_data: Array):
-	# Happens only on doll client each frame. Here is necessary to apply the _already interpolated_ values.
-	get_parent().global_transform.origin = interpolated_data[_position_id]
-	get_parent().mesh_container.rotation = interpolated_data[_rotation_id]
+func _apply_epoch(_delta: float, _interpolation_alpha: float, past_buffer: DataBuffer, future_buffer: DataBuffer):
+    pass
+#	# Happens only on doll client each frame. Here is necessary to apply the _already interpolated_ values.
+#	get_parent().global_transform.origin = future_buffer[_position_id]
+#	get_parent().mesh_container.rotation = future_buffer[_rotation_id]

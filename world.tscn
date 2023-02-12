@@ -29,7 +29,7 @@ volumetric_fog_density = 0.1293
 [sub_resource type="BoxShape3D" id="6"]
 
 [node name="World" type="Node"]
-script = ExtResource( "2" )
+script = ExtResource("2")
 
 [node name="DirectionalLight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.0134716, -0.995255, 0.0963678, -0.13779, 0.0973049, 0.98567, -0.99037, 3.38571e-08, -0.138447, 0, -5.26483, 0)
@@ -41,92 +41,93 @@ collision_mask = 3
 
 [node name="CollisionShape" type="CollisionShape3D" parent="StaticBody"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-shape = SubResource( "1" )
+shape = SubResource("1")
 disabled = true
 
 [node name="MeshInstance" type="MeshInstance3D" parent="StaticBody/CollisionShape"]
-mesh = SubResource( "2" )
+mesh = SubResource("2")
 
 [node name="StaticBody" type="StaticBody3D" parent="StaticBody/CollisionShape/MeshInstance"]
 
 [node name="CollisionShape" type="CollisionShape3D" parent="StaticBody/CollisionShape/MeshInstance/StaticBody"]
-shape = SubResource( "3" )
+shape = SubResource("3")
 
 [node name="ServerCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 10.6518, 37.3083)
 current = true
 
 [node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 10
 anchor_right = 1.0
+grow_horizontal = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 
 [node name="ServerButton" type="Button" parent="Menu/VBoxContainer"]
-offset_right = 107.0
-offset_bottom = 31.0
+layout_mode = 2
 text = "Start Server"
 
 [node name="ClientButton" type="Button" parent="Menu/VBoxContainer"]
-offset_top = 35.0
-offset_right = 107.0
-offset_bottom = 66.0
+layout_mode = 2
 text = "Client Server"
 
-[node name="SyncMesh" parent="." instance=ExtResource( "3" )]
+[node name="SyncMesh" parent="." instance=ExtResource("3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.12977, 0.11825, 0.354554)
 
-[node name="SyncMesh2" parent="." instance=ExtResource( "3" )]
+[node name="SyncMesh2" parent="." instance=ExtResource("3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.21811, 0.11825, 0.46023)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( "4" )
+environment = SubResource("4")
 
 [node name="StaticBody2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody2"]
-mesh = SubResource( "5" )
+mesh = SubResource("5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody2"]
-shape = SubResource( "6" )
+shape = SubResource("6")
 
 [node name="StaticBody3" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3"]
-mesh = SubResource( "5" )
+mesh = SubResource("5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3"]
-shape = SubResource( "6" )
+shape = SubResource("6")
 
 [node name="StaticBody4" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 11)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody4"]
-mesh = SubResource( "5" )
+mesh = SubResource("5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody4"]
-shape = SubResource( "6" )
+shape = SubResource("6")
 
 [node name="StaticBody6" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.57699)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody6"]
-mesh = SubResource( "5" )
+mesh = SubResource("5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody6"]
-shape = SubResource( "6" )
+shape = SubResource("6")
 
 [node name="StaticBody5" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 11)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody5"]
-mesh = SubResource( "5" )
+mesh = SubResource("5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody5"]
-shape = SubResource( "6" )
+shape = SubResource("6")
 
 [connection signal="button_up" from="Menu/VBoxContainer/ServerButton" to="." method="_start_server"]
 [connection signal="button_up" from="Menu/VBoxContainer/ClientButton" to="." method="_start_client"]
