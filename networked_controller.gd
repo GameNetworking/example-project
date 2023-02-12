@@ -11,7 +11,7 @@ var _rotation_id := -1
 func _ready():
 	# Notify the NetworkSync who is controlling parent nodes.
 	NetworkSync.set_node_as_controlled_by(get_parent(), self)
-	NetworkSync.register_variable(get_parent(), "translation")
+	NetworkSync.register_variable(get_parent(), "position")
 	NetworkSync.register_variable(get_parent(), "velocity")
 	NetworkSync.register_variable(get_parent(), "on_floor")
 	if not get_tree().get_multiplayer().is_server():
@@ -132,7 +132,8 @@ func _collect_epoch_data(buffer: DataBuffer):
 #	interpolator.epoch_insert(_rotation_id, rotation)
 
 
-#func _apply_epoch(_delta: float, _interpolation_alpha: float, past_buffer: DataBuffer, future_buffer: DataBuffer):
+func _apply_epoch(_delta: float, _interpolation_alpha: float, past_buffer: DataBuffer, future_buffer: DataBuffer):
+    pass
 #	# Happens only on doll client each frame. Here is necessary to apply the _already interpolated_ values.
 #	get_parent().global_transform.origin = future_buffer[_position_id]
 #	get_parent().mesh_container.rotation = future_buffer[_rotation_id]
