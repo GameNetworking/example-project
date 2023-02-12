@@ -80,7 +80,7 @@ func _on_client_disconnected(peer_id):
 		rpc_id(_players[player_id][&"peer_id"], &"_remove_player", disconnected_player_id)
 
 
-@rpc(call_remote, any_peer, reliable)
+@rpc("call_remote", "any_peer", "reliable")
 func _spawn_new_player(player_id, peer_id):
 	print("Spawn player id: ", player_id, ", Peer_id: ", peer_id)
 	print("While my peer id is: ", get_tree().get_multiplayer().multiplayer_peer.get_unique_id())
@@ -92,7 +92,7 @@ func _spawn_new_player(player_id, peer_id):
 	player.set_color(COLORS_LIST[player_id])
 
 
-@rpc(call_remote, any_peer, reliable)
+@rpc("call_remote", "any_peer", "reliable")
 func _remove_player(player_id):
 	var player_node = get_tree().get_current_scene().get_node("player_" + str(player_id))
 	if player_node != null:
